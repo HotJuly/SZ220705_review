@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            给基本数据类型添加属性是不会报错的,会出现一个包装类对象进行帮忙
+                number->Number
+                string->String
+                boolean->Boolean
+        
+            注意:
+                1.如果给基本数据类型添加/读取属性,就会创建一个对应的包装类对象
+                    该对象会在该行代码执行结束之后,自动销毁,不会影响到当前的代码
+        
+        */
+        // var str = 'hello';
+        // str.title = "world";
+        // console.log(str + str.title)
+
+        
+        var num = 123;
+        num.count = 4;
+        console.log(num + num.count)
+
+    </script>
+</body>
+</html>

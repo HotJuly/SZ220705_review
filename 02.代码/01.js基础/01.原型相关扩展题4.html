@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            需求:现在具有一个变量data,内部会存放数据
+                需要实现一个函数,返回该数据的数据类型
+        
+            解决:
+                1.typeof
+                    语法:typeof data
+                    返回值的数据类型:string
+                    返回值:
+                        1."number" 2."string" 3."boolean"
+                        4."undefined" 5."object" 6."function"
+                        7."symbol" 8."bigint"
+
+                    优点:
+                        1.将需要辨别的数据交给他,它可以很快速明了的返回数据类型
+
+                    缺点:
+                        1.无法区分清楚特殊的对象数据类型,例如:object和array
+                        2.会将null错误识别为object
+                            扩展原因:因为在js底层,数据都是2进制存储
+                                null和object的前三位都是000,所以被误识别
+
+                2.instanceof
+                    语法: A instanceof B
+                    返回值数据类型:boolean
+                    返回值:true||false
+                    用处:用于判断A实例对象是否是B数据类型
+
+                    优点:
+                        1.它的判断结果很准确
+
+                    缺点:
+                        1.他只能判断A是不是B类型,无法判断A具体是什么类型
+
+                3.借用Object的toString方法
+                    为什么不直接使用Array的toString,因为数组的toString经过了重写
+                        会将数组的中括号去除,并将内部的所有数据,以逗号进行拼接,成为一个字符串
+
+                    原理等同于:查看原型对象的constructor一样
+        */
+
+        // var data = [1,2,3];
+        var data = new Date();
+
+        // console.log(typeof data)
+        // console.log(data instanceof Array)
+
+        var obj = {
+            name:"xiaoming",
+            age:23
+        }
+
+        // console.log(obj.toString())
+        // console.log(data.toString())
+        // console.log(Object.prototype.toString.call(data).split(" ")[1].replace(']',''))
+        
+        console.log(data.__proto__.constructor.name)
+    </script>
+</body>
+</html>

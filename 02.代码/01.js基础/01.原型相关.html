@@ -35,15 +35,33 @@
                     -所有的原型对象都具有constructor属性,指向对应的构造函数
 
                     总结:一个原型对象,两个原型属性
+
                 2.为什么要用?
+                    直接目的:可以让原型对象身上的数据,共享给所有的实例对象使用
+                    最终目的:可将本来每个实例对象身上相同的方法,全部提取组合成一个函数,放在原型对象上
+                        用于节省内存空间
 
                 3.怎么用?
+                    将数据存放在原型对象身上,实例对象如果使用该属性,
+                        自身如果没有就会顺着原型链找到该原型对象,从他身上获取该属性
+
+                    读取属性:会顺着原型链向上查找
+                    设置属性:不会顺着原型链向上查找,会直接赋值给当前对象
                 
                 4.在哪用过?
         */
         function Person(name){
             // console.log(this)
             this.name = name;
+
+            // 每执行一次匿名函数声明,就会创建一个全新的匿名函数
+            // this.eat=function(){
+            //     console.log('eat')
+            // }
+        }
+
+        Person.prototype.eat=function(){
+            console.log('eat')
         }
 
         // function person(){
@@ -51,9 +69,34 @@
         // }
 
         var p1 = new Person('xiaoming');
+        // var p2 = new Person('xiaoming2');
         // var p2 = new person();
+        // p1.eat();
 
+        // console.log(p1.eat === p2.eat)
         console.log('p1',p1)
+
+        /*
+            new做的事情
+                1.自动声明形参变量,并将传入的实参数据赋值给对应的形参
+                2.自动声明this变量,并传入一个全新的实例对象
+                3.将当前构造函数的显式原型属性值,赋值给实例对象的隐式原型属性
+                4.默认return当前的实例对象
+        */
+
+        // function person(name){
+        //     var that = new Object();
+
+        //     that.__proto__ = person.prototype;
+
+        //     that.name = name;
+
+
+        //     return that;
+        // }
+
+        // var p3 = person('xiaoming3');
+        // console.log('p3',p3)
     </script>
 </body>
 </html>
