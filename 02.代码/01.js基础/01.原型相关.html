@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            根据程序猿约定俗成的规矩,首字母大写的一般都是构造函数,但是也有不是的Math
+
+            构造函数的用处:用于创建一个属于当前类型的实例对象
+
+            一个函数是否是构造函数,只能同步函数调用方式来进行区分,在函数声明的时候是无法区分的
+        
+
+            在js中,内存分为几部分?
+                一共分为两部分
+                栈内存
+                    只能存放基本数据类型,地址值,标识
+
+                堆内存
+                    可以存储对象,可以存放基本数据类型
+
+            注意:变量和函数名是同一个东西,统称为标识
+
+
+            原型相关
+                1.这是什么?
+                    -所有的实例对象都具有隐式原型属性(__proto__)
+                    -所有的构造函数都具有显式原型属性(prototype)
+                    -实例对象的隐式原型指向构造函数的显式原型
+                    -所有的原型对象都具有constructor属性,指向对应的构造函数
+
+                    总结:一个原型对象,两个原型属性
+                2.为什么要用?
+
+                3.怎么用?
+                
+                4.在哪用过?
+        */
+        function Person(name){
+            // console.log(this)
+            this.name = name;
+        }
+
+        // function person(){
+        //     console.log(this)
+        // }
+
+        var p1 = new Person('xiaoming');
+        // var p2 = new person();
+
+        console.log('p1',p1)
+    </script>
+</body>
+</html>
