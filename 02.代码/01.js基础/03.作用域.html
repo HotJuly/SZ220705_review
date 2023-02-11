@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+            前言:
+                在编程界,作用域一共分为两种:
+                    1.词法作用域(又称为静态作用域)
+                        函数的作用域,与声明位置有关,与调用位置无关
+
+                    2.动态作用域
+                        函数的作用域,与声明位置无关,与调用位置有关
+
+            1.作用域
+                作用域是用来约束变量的作用范围
+                作用域其实就是变量的查找规则
+
+                在js中,只有词法作用域一种,没有动态作用域
+
+            2.预解析规则(变量提升)
+                1.变量提升
+                    变量提升是局部提升,他会将标识的声明提升到最顶端,标识的赋值会留在原地
+
+                2.函数提升
+                    函数提升是整体提升,他会将标识的声明以及赋值都提升到最顶端
+
+                注意:
+                    1.区分清楚标识声明和标识赋值
+                        例如:var a = 1; => 
+                            标识声明:var a;
+                            标识赋值:a=1; 
+                    2.函数表达式的提升是变量提升,只会将标识声明提前,赋值依旧留在原地
+
+            3.预解析的优先级
+                函数提升优先于变量提升
+
+            4.预解析的范围
+                会将标识声明提升到当前作用域的最顶端,不会穿透作用域
+
+                注意:变量的查找都是从内向外层查找
+
+            5.作用域分类
+                1.全局作用域
+                    他是js中最大的,顶级作用域
+                    所有人都可以获取到他身上的数据
+
+                    扩展:全局作用域其实也是函数作用域的一员
+                        因为js引擎执行代码,会将主线程代码放在一个匿名函数中调用执行
+                        但是他是一个最顶级的函数,所以他的作用域所有人都可以用
+
+                2.局部作用域(又称为函数作用域)
+                    他是与函数有关,每个函数都具有自己独立的一片作用域
+                    内部的数据不能被外层访问
+
+                3.块级作用域
+                    只要使用let或者const就会出现ES6新增的块级作用域
+
+        */
+
+      // var a = 1;
+      // function fn(){
+      //     var a = 2;
+      //     function inner(){
+      //         console.log('inner',a)
+      //     }
+      //     return inner;
+      // }
+
+      // var inner = fn();
+      // inner();
+
+      //-------------------------
+
+      // console.log(a);
+      // var a = 1;
+
+      //---------------------------
+
+      // console.log(a);
+
+      // function a(){
+      //     console.log(123)
+      // }
+
+      //---------------------------
+
+      // console.log(a)
+
+      // var a = function(){
+      //     console.log(123)
+      // }
+
+      //------------------------
+      // var a = 1;
+      // function fn(){
+      //     var a = 2;
+      //     var b = 3;
+      //     console.log(a,b)
+      // }
+      // fn();
+      // console.log(a,b)
+
+      //----------------------
+      var a = 1;
+      let obj = {
+          a:2,
+          fn:function(){
+              console.log('fn',a)
+          }
+      }
+      obj.fn();
+      console.log('window',a)
+
+      //--------------------------
+    //   if (true) {
+    //     let a = 1;
+    //     console.log(a);
+    //   }
+    //   console.log(a);
+
+    //--------------------------------\
+    // function fn(){
+    //     var obj = {
+    //         name:"xiaoming"
+    //     }
+    //     return obj;
+    // }
+
+    // var aaa = fn();
+    // console.log(aaa,obj)
+    </script>
+  </body>
+</html>
