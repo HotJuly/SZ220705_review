@@ -61,9 +61,20 @@
                 3.块级作用域
                     只要使用let或者const就会出现ES6新增的块级作用域
 
+                    注意点:
+                        1.let和const需要跟外层的大括号进行配合,生成块级作用域
+                        2.在同一个大括号中,使用多次let或者const都只会生成一个块级作用域
+
+            6.形参默认值(ES6新增语法)
+                只要函数使用了形参默认值,那么函数内部的代码就会在新生成的块级作用域中执行
+                    注意:
+                        1.函数内部的在块级作用域中,函数的形参还在函数作用域中
+                        2.函数被调用的时候,如果函数内部和函数形参的名字相同,那么他们的初始值也会相同
+                            函数形参会将自己的值传递一份给函数内部同名变量
+
         */
 
-      // var a = 1;
+      //   var a = 1;
       // function fn(){
       //     var a = 2;
       //     function inner(){
@@ -107,33 +118,142 @@
       // console.log(a,b)
 
       //----------------------
-      var a = 1;
-      let obj = {
-          a:2,
-          fn:function(){
-              console.log('fn',a)
-          }
-      }
-      obj.fn();
-      console.log('window',a)
+      //   var a = 1;
+      //   var obj = {
+      //     a: 2,
+      //     fn: function () {
+      //       console.log("fn", a);
+      //     },
+      //   };
+      //   obj.fn();
+      //   console.log("window", a);
 
       //--------------------------
-    //   if (true) {
-    //     let a = 1;
-    //     console.log(a);
-    //   }
-    //   console.log(a);
+      //   if (true) {
+      //     let a = 1;
+      //     console.log(a);
+      //   }
+      //   console.log(a);
 
-    //--------------------------------\
-    // function fn(){
-    //     var obj = {
-    //         name:"xiaoming"
+      //--------------------------------
+      // function fn(){
+      //     var obj = {
+      //         name:"xiaoming"
+      //     }
+      //     return obj;
+      // }
+
+      // var aaa = fn();
+      // console.log(aaa,obj)
+
+      //----------------------------
+      //   if (true) {
+      //     let a = 1;
+      //     // console.log(a,a2);
+      //   }
+      //   if (true) {
+      //     let a2 = 2;
+      //   }
+
+      //-------------------------------
+      //   let a = 1;
+      //   let a2 = 2;
+      //   console.log(a, a2);
+
+      //-------------------------------
+
+      //   function fn(x, y = 5) {
+      //     var a = 1;
+      //     var b = 2;
+      //     // x = 6;
+      //     var y;
+      //     y = 6;
+      //     console.log(a, b, x, y);
+      //   }
+      //   fn(3);
+
+      //-------------------------------------
+      //   var x = 1;
+      //   function fn(
+      //     x,
+      //     y = function () {
+      //       x = 3;
+      //       console.log('two',x);
+      //     }
+      //   ) {
+      //     console.log('one',x);
+      //     var x = 2;
+      //     y();
+      //     console.log('three',x);
+      //   }
+
+      //   fn();
+      //   console.log('four',x)
+
+      //----------------------------------------
+
+      //   var x = 1;
+      //   function fn(
+      //     x,
+      //     y = function () {
+      //       x = 3;
+      //       console.log("two", x);
+      //     }
+      //   ) {
+      //     console.log("one", x);
+      //     // var x = 2;
+      //     y();
+      //     console.log("three", x);
+      //   }
+
+      //   fn();
+      //   console.log("four", x);
+
+      //-----------------------------------
+
+    //   var x = 1;
+    //   function fn(
+    //     xx,
+    //     y = function () {
+    //       x = 3;
+    //       console.log("two", x);
     //     }
-    //     return obj;
-    // }
+    //   ) {
+    //     console.log("one", x);
+    //     var x = 2;
+    //     y();
+    //     console.log("three", x);
+    //   }
 
-    // var aaa = fn();
-    // console.log(aaa,obj)
+    //   fn();
+    //   console.log("four", x);
+
+      //-----------------------------------------
+      
+    //   var x = 1;
+    //   function fn(
+    //     x = 4,
+    //     y = function () {
+    //       x = 3;
+    //       console.log("two", x);
+    //     }
+    //   ) {
+    //     console.log("one", x);
+    //     var x = 2;
+    //     y();
+    //     console.log("three", x);
+    //   }
+
+    //   fn();
+    //   console.log("four", x);
+
+      //---------------------------
+      // var x = 1;
+      // function fn(){
+      //     var x;
+      //     console.log(x)
+      // }
+      // fn();
     </script>
   </body>
 </html>
