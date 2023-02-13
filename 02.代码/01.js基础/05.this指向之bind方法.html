@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+            前言:
+                fn.call(obj)
+                fn被称为被借调函数
+                call被称为借调函数
+                obj被称为强行改变的this指向
+
+            面试题:说下你对call和bind的了解
+                他们两者的区别
+
+            回答:
+                1.相同点
+                  1.他们都可以传入第一个实参,从而来改变被借调函数的this指向
+
+                  2.他们都会将第二个实参开始的数据,传给被借调函数作为实参使用
+
+                  3.如果没有传入的第一个实参(或者是undefined|null),那么this指向就会变为window
+                      如果传入的是number,string,boolean,this指向就会变为对应的包装类对象
+
+                2.不同点
+                  1.被借调函数执行时机不同
+                    call方法会立即同步调用被借调函数
+                    bind方法不会立即调用被借调函数
+
+                  2.返回值不同
+                    call方法会将被借调函数的执行结果,作为自己的返回值使用
+                    bind方法会返回一个被修改了this指向的全新函数
+
+                  3.修改this时效不同
+                    call方法是临时修改本轮执行的this指向
+                    bind方法会永久修改返回出来的全新函数的this指向
+                      扩展:哪怕是后续在使用call,apply,bind方法也无法修改他的this
+
+                  4.传入参数次数不同
+                    call方法只有一次传入实参的机会
+                    bind方法有他本身返回一个函数,所以一共具有两次传入实参的机会
+
+                    可以实现简化版本的函数柯里化,比传统的函数柯里化,结构更加简单,效果相同
+        */
+
+      // function fn(x, y, z) {
+      //   console.log(this, x, y, z);
+      //   return x + y + z;
+      // }
+
+      // var obj = {
+      //   name: "xiaoming",
+      //   age: 23,
+      //   fn: fn,
+      // };
+
+      // console.log(1)
+      // var result1 = fn.call(obj,1,2);
+      // fn();
+      // var result2 = fn.bind(obj,3);
+      // result2(4,8);
+
+      // result2.call(1);
+      // console.log(2,result2===fn)
+
+      //-------------------------------------------
+      // Function.prototype.myBind = function (thatThis,...args) {
+      //   /*
+      //     this->被借调函数(fn)
+      //     thatThis->强行改变的this指向(obj)
+      //   */
+      //   var that = this;
+
+      //   return function (...args2) {
+      //     // console.log('this',this)
+      //     that.call(thatThis,...args,...args2);
+      //   };
+      // };
+      // var result3 = fn.myBind(null,1);
+      // result3(2,3);
+
+      // result3.call(1);
+      // result3();
+      // result3();
+      // result3();
+      // result3();
+      // result3();
+      // result3();
+
+      //-------------------------------------------
+      // 函数柯里化
+      // function person(name,age,sex){
+      //   return {
+      //     name,
+      //     age,
+      //     sex
+      //   }
+      // }
+
+      // var p1 = person("xiaoming",23,'男');
+      // var p2 = person("xiaowang",26,'未知');
+
+      //------------------------------------------
+      // function person(sex){
+      //   return function(name,age){
+      //     return {
+      //       name,
+      //       age,
+      //       sex
+      //     }
+      //   }
+      // }
+
+      // var woman = person("女");
+      // var p1 = woman('xiaohong',18);
+      // var p2 = woman('laohong',38);
+
+      //---------------------------------
+
+      // function person(sex) {
+      //   return function (age) {
+      //     return function(name){
+      //       return {
+      //         name,
+      //         age,
+      //         sex,
+      //       };
+      //     }
+      //   };
+      // }
+
+      // var woman = person('女');
+      // var young = woman(18);
+      // var p1 = young("xiaohong");
+      // var p2 = young("xiaolv");
+
+      //----------------------------
+      function person(sex,age,name){
+        return {
+          name,
+          age,
+          sex
+        }
+      }
+
+      var young = person.bind(null,"女",18);
+      var p1 = young("xiaohong");
+      var p2 = young("xiaolv");
+      console.log(p1,p2)
+    </script>
+  </body>
+</html>
