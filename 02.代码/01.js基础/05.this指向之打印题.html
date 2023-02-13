@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var length = 6;
+
+        var obj = {
+            length:7,
+            fn:function(){
+                return this.length
+            }
+        };
+
+        (function(){
+            var length = 8;
+            // arguments是一个伪数组,他会接收当前函数的所有参数
+            console.log(arguments[0]());
+        })(obj.fn,1,2,3);
+
+        //-----------------------------------------
+        
+        // var length = 6;
+
+        // var obj = {
+        //     length:7,
+        //     fn:function(){
+        //         return this.length
+        //     }
+        // };
+
+        // (function(){
+        //     var length = 8;
+        //     // arguments是一个伪数组,他会接收当前函数的所有参数
+        //      数组是对象,伪数组也是对象,他们都是属性名是下标=>arr[0] arr.0
+        // 对象读取属性值的写法:    obj.name obj["name"]
+        //      console.log(a.b());
+        //     console.log(arguments[0]());
+        // })(0x001);
+
+        // -------------------
+        // var arr = [];
+        // function fn(){
+        //     console.log(this)
+        // }
+
+        // arr.push(fn);
+        // arr[0]();
+
+    </script>
+</body>
+</html>
