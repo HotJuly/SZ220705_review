@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+        Promise
+            数据类型:函数(他是一个构造函数)
+
+            接收参数:
+                1.接收个数:1个
+                2.数据类型:函数(又称为执行器函数)
+                    同步调用执行器函数
+                    接收两个参数
+                        resolve函数
+                            可以控制当前返回的p1的状态,将其变为成功
+
+                        reject函数
+                            可以控制当前返回的p1的状态,将其变为失败
+                            并且会在控制提示报错
+
+            返回值:是一个全新的promise实例对象(简称p1)
+                promise对象身上具有的重要属性:
+                    1.state状态
+                        pending->等待中
+                        resolved/fulfilled->成功
+                        rejected->失败
+
+                        注意:promise对象的状态只能改变一次,而且不可逆
+
+                    2.result结果值
+                        可以通过给resolve或者reject方法传入实参,来进行赋值控制
+
+
+        .then
+            用处:可以监视某个promise对象的状态变化,并执行对应的回调函数
+            数据类型:函数
+            接收参数:
+                1.个数为0-2个
+                2.数据类型:函数
+                第一个实参是成功回调
+                    如果监视的promise变为成功状态,那么就执行该回调函数
+
+                第二个实参是失败回调
+                    如果监视的promise变为失败状态,那么就执行该回调函数
+                        并且捕获控制台的报错
+
+                注意:
+                    1.无论是成功还是失败,回调函数都可以通过声明形参来接收promise对象的result值
+
+            返回值:是一个全新的promise对象(简称p2)
+                如何控制p2的状态
+                    变为成功
+                        1.只要回调函数中的代码,成功执行结束,那么p2就会变为成功状态
+                        2.如果回调函数中返回一个成功的promise对象,那么p2就会变为成功状态
+
+                    变为失败
+                        1.如果回调函数中的代码,出现报错无法执行结束,那么p2就会变为失败
+                        2.如果回调函数中返回一个失败的promise对象,那么p2就会变为失败状态
+
+                    继承状态
+                        如果监视的promise状态发生了变化,但是没有对应的回调函数可以执行
+                            那么p2的状态就会参考p1的状态,继续向下传递
+                注意:
+                    1.无论回调函数中返回任何内容,都不会影响到.then返回一个promise对象这个事情
+                    2.如果在回调函数中返回一个非promise对象,那么该数据就会成为p2的result值
+
+
+        .catch(他是.then的语法糖,它相当于.then没有传成功回调)
+            用处:捕获promise出现的错误
+                监视某个promise状态的变化,如果变为失败状态,就会执行回调函数
+            数据类型:函数
+            接收参数个数:1个
+                数据类型:函数(失败回调)
+
+
+            语法糖:.catch(回调函数) => .then(null, 回调函数)
+
+    */
+      //   var p1 = new Promise((resolve, reject) => {
+      //     setTimeout(() => {
+      //       resolve(111);
+      //     }, 1000);
+      //     setTimeout(() => {
+      //       reject();
+      //     }, 2000);
+      //   });
+
+      //   setTimeout(() => {
+      //     console.log(p1);
+      //   }, 3000);
+
+      //----------------------------------
+
+      //   var p1 = new Promise((resolve, reject) => {
+      //     setTimeout(() => {
+      //       resolve(111);
+      //       //   reject(222);
+      //     }, 1000);
+      //   });
+
+      //   var p3 = Promise.resolve();
+      //   var p2 = p1.then(
+      //     (data) => {
+      //       console.log(1, data);
+      //       //   throw new Error();
+
+      //       //   return 123;
+      //       //   return Promise.resolve();
+      //       //   return Promise.reject();
+
+      //       return p3;
+      //     },
+      //     (error) => {
+      //       console.log(2, error);
+      //     }
+      //   );
+      //   console.log("p2", p2===p3);
+
+      //------------------------------------------
+      //   var p1 = new Promise((resolve, reject) => {
+      //     setTimeout(() => {
+      //       //   resolve(111);
+      //       reject(222);
+      //     }, 1000);
+      //   });
+
+      //   p1.then(
+      //     () => {
+      //       console.log(1);
+      //     },
+      //     () => {
+      //       console.log(2);
+      //     //   throw new Error();
+      //     }
+      //   ).then(
+      //     () => {
+      //       console.log(3);
+      //     },
+      //     () => {
+      //       console.log(4);
+      //     }
+      //   );
+
+      //----------------------------
+
+      //   var p1 = new Promise((resolve, reject) => {
+      //     setTimeout(() => {
+      //       resolve(111);
+      //       //   reject(222);
+      //     }, 1000);
+      //   });
+
+      //   p1.then(null, () => {
+      //     console.log(2);
+      //   }).then(
+      //     () => {
+      //       console.log(3);
+      //     },
+      //     () => {
+      //       console.log(4);
+      //     }
+      //   );
+
+      //----------------------------------
+
+      //   var p1 = new Promise((resolve, reject) => {
+      //     setTimeout(() => {
+      //       //   resolve(111);
+      //       reject(222);
+      //     }, 1000);
+      //   });
+
+      // p1.then(
+      //     () => {
+      //         console.log(1);
+      //     },
+      //     () => {
+      //         console.log(2);
+      //     }
+      // )
+      // .then(
+      //     () => {
+      //         console.log(4);
+      //     },
+      //     () => {
+      //         console.log(5);
+      //     }
+      // )
+      // .catch(() => {
+      //     console.log(3);
+      // });
+
+      //------------------------
+      var p1 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve("请求得到的数据");
+        }, 1000);
+      });
+
+      setTimeout(() => {
+        p1.then(() => {
+          console.log(1);
+        });
+      }, 2000);
+    </script>
+  </body>
+</html>
