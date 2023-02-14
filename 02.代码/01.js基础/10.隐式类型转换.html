@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            问题：请问js中,6个false值是哪些?
+                0,NaN,"",false,undefined,null
+        */
+
+        /*
+            基本数据类型VS基本数据类型
+                会发生类型转换
+            toNumber->所有的数据都往数字转
+            注意点:
+                基本数据类型中,undefined和null两者互等,与其他任何人都不相等
+        */
+        // console.log("1",true==1);      //true   =>  1===1
+        // console.log("2",true=="1");    //true   =>  1===1
+        // console.log("3","2"==1);       //false  =>  2===1
+        // console.log("4","a"==1);       //false  =>  NaN===1
+        // console.log("5",true=="true"); //false  =>  1===NaN
+        // console.log("6",true=="false");//false  =>  1===NaN
+
+        /*
+            对象数据类型VS对象数据类型
+                比较地址值即可,地址值相同就是true,反之false
+            
+                语法糖:
+                    []->new Array()
+                    {}->new Object()
+        
+        
+        */
+        console.log("7",[]==[]);    //false =>  new Array() === new Array();
+        console.log("8",{}=={});    //false =>  new Object() === new Object();
+        console.log("9",[]===[]);   //false =>  new Array() === new Array();
+        console.log("10",{}==={});  //false =>  new Object() === new Object();
+        console.log("11",[]!==[]);  //true 
+        console.log("13",{}!=={});  //true
+
+        /*
+            对象数据类型VS基本数据类型
+            1.使用valueof方法
+            2.使用toString方法
+        */
+        console.log("12",[]==![])   //true  =>  []==(![])   =>  []==false
+        //  ""==false   =>  0===0
+
+        console.log("14",{}==!{})   //false =>  {}==(!{}) => {}==false
+        //  "[object Object]"==false   =>  NaN===0
+
+        console.log("15",0=="0")//true
+        console.log("16",0==[]) //true
+        console.log("17","0"==[])//false
+        // "0"==[] -> "0"==""
+
+        console.log("18",0==new Number(0))
+
+
+    </script>
+</body>
+</html>
