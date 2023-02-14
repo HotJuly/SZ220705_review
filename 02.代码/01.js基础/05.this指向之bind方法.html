@@ -69,18 +69,18 @@
       // console.log(2,result2===fn)
 
       //-------------------------------------------
-      // Function.prototype.myBind = function (thatThis,...args) {
-      //   /*
-      //     this->被借调函数(fn)
-      //     thatThis->强行改变的this指向(obj)
-      //   */
-      //   var that = this;
+      Function.prototype.myBind = function (thatThis,...args) {
+        /*
+          this->被借调函数(fn)
+          thatThis->强行改变的this指向(obj)
+        */
+        var that = this;
 
-      //   return function (...args2) {
-      //     // console.log('this',this)
-      //     that.call(thatThis,...args,...args2);
-      //   };
-      // };
+        return function (...args2) {
+          // console.log('this',this)
+          return that.call(thatThis,...args,...args2);
+        };
+      };
       // var result3 = fn.myBind(null,1);
       // result3(2,3);
 

@@ -17,11 +17,13 @@
             }
         };
 
-        (function(){
+        (function(a){
             var length = 8;
             // arguments是一个伪数组,他会接收当前函数的所有参数
             console.log(arguments[0]());
-        })(obj.fn,1,2,3);
+            // console.log(obj['fn']());
+            // console.log(a());
+        })(obj.fn);
 
         //-----------------------------------------
         

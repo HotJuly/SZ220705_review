@@ -16,34 +16,91 @@
       aaaaaaa
   </div>
   <script>
-      Promise.resolve().then(() => { // 微任务
-          alert('promise1') // 页面渲染了吗?
-      }) 
+    /*
+        浏览器是一个多线程多进程的东西
+            每个标签页都是一个全新的进程
 
-      Promise.resolve().then(() => { // 微任务
-          alert('promise2') // 页面渲染了吗?
-      }) 
+        浏览器中具有
+            1.负责解析js代码的线程->js引擎(js线程)
+            2.负责页面渲染的线程->GUI线程
 
-      setTimeout(() => {// 宏任务
-          alert(document.getElementById('content').innerHTML)  // 页面渲染了吗?
-      }, 0)
+            以上两个线程是互斥的,一个时间只能让一个人工作
+                要么渲染页面,要么执行js代码
 
-      document.getElementById('test').onclick = () => {// 宏任务
+        页面操作流程:
+            1.执行主线程代码
+            2.清空微任务队列
+            3.GUI线程渲染页面
+            4.执行下一个宏任务
 
-          document.getElementById('content').innerHTML = 'xxxx'
+        更新页面流程:
+            1.先清空微任务队列
+            2.GUI线程渲染页面
+            3.执行下一个宏任务
 
-          alert(document.getElementById('content').innerHTML)
 
-          setTimeout(() => {// 宏任务  
-              alert(document.getElementById('content').innerHTML) // 页面更新渲染了吗?
-          }, 0); 
+        问题:请说说对挂载和渲染的了解
+            挂载和渲染不是同一个东西
+                挂载:挂载是将节点放入html节点中
+                渲染:根据最新的html节点,绘制内容到浏览器上给用户观看
 
-          Promise.resolve().then(() => { // 微任务 
-              alert('promise3') //页面更新渲染了吗?
-          }) 
-      }
+                挂载是同步的,渲染是异步的
+
+
+        问题:明明已经有了宏任务,为什么还要新增微任务?
+            es6开始才正式新增微任务
+
+        回答:
+            如果同样是修改一百万次页面
+                100万个微任务都修改页面,只会导致页面渲染一次
+                    也就是说微任务相当于给页面做了防抖操作,页面只会根据最后一次的结果渲染页面
+
+                100万个宏任务都修改页面,会导致页面渲染100万次
+
+            扩展:Vue更新DOM也是在微任务中执行的
+
+    
+    
+    */
+    //   Promise.resolve().then(() => { // 微任务
+    //       alert('promise1') // 页面渲染了吗?
+    //   }) 
+
+    //   Promise.resolve().then(() => { // 微任务
+    //       alert('promise2') // 页面渲染了吗?
+    //   }) 
+
+    //   setTimeout(() => {// 宏任务
+    //       alert(document.getElementById('content').innerHTML)  // 页面渲染了吗?
+    //   }, 0)
+
+    //   document.getElementById('test').onclick = () => {// 宏任务
+
+    //       document.getElementById('content').innerHTML = 'xxxx'
+
+    //       alert(document.getElementById('content').innerHTML)
+
+    //       setTimeout(() => {// 宏任务  
+    //           alert(document.getElementById('content').innerHTML) // 页面更新渲染了吗?
+    //       }, 0); 
+
+    //       Promise.resolve().then(() => { // 微任务 
+    //           alert('promise3') //页面更新渲染了吗?
+    //       }) 
+    //   }
       
-      alert('1111') // 页面渲染了吗?
+    //   alert('1111') // 页面渲染了吗?
+
+    //---------------------------------------------
+    for (let index = 0; index < 1000000; index++) {
+        // setTimeout(()=>{
+        //     document.getElementById('content').innerText = index;
+        // },10*index)
+
+        Promise.resolve().then(()=>{
+            document.getElementById('content').innerText = index;
+        })
+    }
 
   </script>
 </body>

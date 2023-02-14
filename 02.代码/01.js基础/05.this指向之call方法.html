@@ -74,6 +74,7 @@
 
         // console.log('args',args)
 
+        // 需要检查传入的this指向是否为undefined或者null
         if (thatThis == null) {
           thatThis = window;
         }
@@ -90,8 +91,8 @@
 
         var result = thatThis._fn(...args);
 
-        delete thatThis._fn;
-        // delete thatThis.__proto__._fn;
+        // delete thatThis._fn;
+        delete thatThis.__proto__._fn;
 
         return result;
       };
