@@ -69,6 +69,7 @@
                 注意:
                     1.无论回调函数中返回任何内容,都不会影响到.then返回一个promise对象这个事情
                     2.如果在回调函数中返回一个非promise对象,那么该数据就会成为p2的result值
+                    3.then方法,不是一定要就开启微任务,而是必须被监视的promise变化状态,才会开启微任务
 
 
         .catch(他是.then的语法糖,它相当于.then没有传成功回调)
@@ -197,17 +198,32 @@
       // });
 
       //------------------------
+      // var p1 = new Promise((resolve, reject) => {
+      //   setTimeout(() => {
+      //     resolve("请求得到的数据");
+      //   }, 1000);
+      // });
+
+      // setTimeout(() => {
+      //   p1.then(() => {
+      //     console.log(1);
+      //   });
+      // }, 2000);
+
+      //--------------------------------
       var p1 = new Promise((resolve, reject) => {
         setTimeout(() => {
-          resolve("请求得到的数据");
+          resolve();
         }, 1000);
       });
 
-      setTimeout(() => {
-        p1.then(() => {
-          console.log(1);
-        });
-      }, 2000);
+      p1.then(() => {
+        console.log(1);
+      });
+
+      Promise.resolve().then(() => {
+        console.log(2);
+      });
     </script>
   </body>
 </html>
