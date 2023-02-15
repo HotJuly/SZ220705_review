@@ -13,21 +13,21 @@
             微任务队列是需要清空之后,才能切换到下一个队列的
 
 */
-// Promise.resolve().then(()=>{
-//     console.log(1)
+Promise.resolve().then(()=>{
+    console.log(1)
 
-//     process.nextTick(()=>{
-//         console.log(2)
-//     })
+    process.nextTick(()=>{
+        console.log(2)
+    })
     
-//     Promise.resolve().then(()=>{
-//         console.log(3)
-//     })
+    Promise.resolve().then(()=>{
+        console.log(3)
+    })
     
-//     process.nextTick(()=>{
-//         console.log(4)
-//     })
-// })
+    process.nextTick(()=>{
+        console.log(4)
+    })
+})
 
 // process.nextTick(()=>{
 //     console.log(2)
@@ -39,6 +39,24 @@
 //     process.nextTick(()=>{
 //         console.log(4)
 //     })
+// })
+
+//------------------------
+
+// Promise.resolve().then(()=>{
+//     console.log(1)
+// })
+
+// process.nextTick(()=>{
+//     console.log(2)
+// })
+
+// Promise.resolve().then(()=>{
+//     console.log(3)
+// })
+
+// process.nextTick(()=>{
+//     console.log(4)
 // })
 
 

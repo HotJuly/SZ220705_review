@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>我是h1标签</h1>
+    <script>
+    /*
+        1.是什么 2.为什么要用(有) 3.怎么用 4.在哪用
+
+    事件机制
+        1.事件机制是什么
+            1.事件是什么?
+                事件就是在程序运行过程中,发生的事情或者发生的操作
+                简单来说:就是用户在项目中,做了什么事情
+
+                事件的三要素:
+                    1.事件源
+                    2.事件类型(事件名)
+                    3.事件处理器(又称为事件回调函数)
+                    例如:div.onclick=function(){}
+                
+                有多种事件组成的一套执行顺序的规则就是事件机制
+
+            2.事件机制分为几种?
+                1.事件捕获机制(网景浏览器)
+                2.事件冒泡机制(IE浏览器)
+                3.标准事件机制(又称为标准事件流,现如今绝大多数浏览器都是这个机制)
+
+            3.标准事件机制分为几个阶段?
+                1.捕获阶段
+                    从最外层元素document开始,向内逐层触发同类型事件,直到最内层的目标元素为止
+
+                2.目标阶段
+                    将目标元素身上所有的同类型事件的事件处理器全部触发
+
+                3.冒泡阶段
+                    从最内层的目标元素开始,向外逐层触发同类型事件,直到最外层的docuemnt元素为止
+
+        2.为什么要有事件机制?
+            通过事件机制,可以监视用户在项目中的操作(实现与用户的交互)
+                只要用户在项目中,做了什么事情,我们绑定对应的事件以及处理器,那么浏览器就会自动执行该处理器
+
+        3.怎么用?
+            1.绑定事件监听的语法
+                1.DOM 0写法
+                    语法:div.onclick = function(){}
+                        div.onclick = null
+                    本质:给div对象的onclick属性进行赋值操作
+                    优点:语法简单,绑定简单,解绑也简单
+                    缺点:由于是将处理器函数放在一个属性里面,
+                        所以即便多次绑定,也只能保存最后一个处理器函数
+
+                2.DOM 2写法
+                    语法:div.addEventListener("click",function(){})
+                        div.removeEventListener("click",function(){})
+                    本质:在调用div对象身上的addEventListener方法
+                    优点:由于函数可以调用多次,所以可以给一个事件绑定多个处理器函数
+                    缺点:语法复杂,绑定麻烦,解绑更麻烦
+                        解绑的时候传入的回调函数,必须跟绑定时候是同一个
+
+                    第三个参数:
+                        数据类型:布尔值||对象
+                            布尔值
+                                true->将事件绑定在捕获阶段
+                                false->将事件绑定在冒泡阶段(默认值)
+                            对象
+                                passive属性
+                                    true->代表处理器函数中的preventDefault可以生效
+                                    false->代表处理器函数中的preventDefault不可以生效
+                                capture属性
+                                    true->将事件绑定在捕获阶段
+                                    false->将事件绑定在冒泡阶段(默认值)
+
+            2.如何阻止冒泡?
+                event.cancelBubble=true; =>(IE专用)
+                event.stopPropagation(); =>(高级浏览器专用)
+
+                问题:如何阻止捕获?
+                    event.stopPropagation();    =>(用在哪个阶段就是阻止哪个阶段继续触发)
+
+        4.在哪用?
+            Vue后台管理系统中的编辑模式切换
+
+            
+    */
+   var h1 = document.querySelector('h1');
+   function fn(e){
+    e.preventDefault();
+    console.log(1)
+   }
+
+   h1.addEventListener('click',fn)
+
+   h1.removeEventListener('click',fn)
+    </script>
+</body>
+</html>

@@ -45,3 +45,13 @@ setTimeout(()=>{
 
 for (let index = 0; index < 100000; index++) {
 }
+
+//----------------------------------------
+
+// setTimeout(()=>{
+//     console.log(1)
+// },0)
+
+// setTimeout(()=>{
+//     console.log(2)
+// },0)
