@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="wrap">
+      <div class="divs">A</div>
+      <div class="divs">B</div>
+      <h1>C</h1>
+      <h1>D</h1>
+    </div>
+    <script>
+      /*
+        事件委托
+            1.事件委托是什么?
+                事件委托其实就是将本来绑定在子节点身上的事件处理器,
+                    绑定到父节点身上,这类操作就是事件委托
+
+                事件委托其实是开发者根据事件机制,研究出来的一种性能优化的写法
+
+                利用到了事件会逐层向外冒泡的原理
+
+            2.为什么要使用事件委托?
+                没使用事件委托之前存在的问题:
+                    1.如果需要绑定的节点非常的多,那么就需要给每个节点都准备一个事件处理函数
+                    2.后续添加的节点,没办法使用到之前绑定的事件
+
+                使用事件委托之后得到的效果:
+                    1.无论具有多少个子节点,都只需要创建一个事件回调函数,占用内存较少
+                    2.一劳永逸,后续新增的子节点,也可以享受到之前绑定的事件
+
+            3.怎么用?
+                1.封装一个全新的函数,用于接收四个数据
+                    -事件源(父节点)
+                    -事件名
+                    -事件处理器
+                    -指定元素的选择器字符串
+                2.在事件源身上绑定事件,并将一个全新的函数作为事件真正的处理器
+                3.在流程2的事件处理器中,我们会判断当前目标元素是否符合选择器字符串的要求
+                4.如果满足选择器字符串的要求,就会使用call方法调用流程1中的事件处理器
+                    否则就什么都不做
+
+            4.在哪用过?
+                Vue尚品汇项目首页三级列表联动
+
+    */
+
+      // 此处会找到页面上类名为divs的节点,最终组成的伪数组
+      var divs = document.querySelectorAll(".divs");
+
+      // for (let index = 0; index < divs.length; index++) {
+      //     const div = divs[index];
+      //     div.onclick=function(){
+      //         console.log(1)
+      //     }
+      // }
+
+      //   wrap.onclick = function () {
+      //     console.log(1);
+      //   };
+      function bindEvent2(ele, type, fn, selector) {
+        ele.addEventListener(type, function (event) {
+
+            // 用于获取到当前事件流中的目标元素
+          const target = event.target;
+
+          if (selector) {
+        //   如果有传入选择器字符串,就进入该判断
+
+        // matches方法可以判断前面的DOM元素,是否匹配后面传入的选择器字符串
+        // 匹配返回true,不匹配就是false
+            if (target.matches(selector)) {
+
+            // 如果不适用call方法调用fn,那么fn函数的this就会出现问题,而且无法得到事件对象
+              fn.call(target, event);
+            //   fn();
+            }
+          } else {
+            fn.call(ele, event);
+          }
+        });
+      }
+
+      bindEvent2(
+        wrap,
+        "click",
+        function () {
+          console.log(1,this);
+        },
+        ".divs"
+      );
+
+      setTimeout(() => {
+        var div = document.createElement("div");
+        div.innerText = "E";
+        div.className = "divs";
+
+        wrap.appendChild(div);
+      }, 2000);
+    </script>
+  </body>
+</html>
