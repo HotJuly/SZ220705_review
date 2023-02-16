@@ -9,6 +9,10 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  a:6,
+  mounted(){
+    // console.log('hello',this.$options.a)
   }
 }
 </script>
