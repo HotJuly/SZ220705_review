@@ -1,19 +1,15 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <h2>pageX:{{pageX}}</h2>
-    <h2>pageY:{{pageY}}</h2>
   </div>
 </template>
 
 <script>
-import moveMixin from '@/mixins/moveMixin'
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
-  },
-  mixins:[moveMixin]
+  }
 }
 </script>
 
