@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="btn">点击</button>
+    <script>
+      /*
+        防抖和节流
+            1.防抖和节流是什么?
+                他是一种js代码的写法,使用他之后可以优化代码性能
+                
+            2.为什么要用他们?
+                问题:某些函数,在一段时间之内,连续触发多次,但是得到的效果是一样的
+                    浪费代码性能
+                        主要就是如果该按钮涉及到发送请求之类的操作,后端就会受到多次请求
+                            会加大后端服务器的压力
+
+                解决方案:尽可能的降低这些函数的执行频率
+
+                想要的效果:在一段时间之内,连续触发多次函数,只会有一次生效
+
+                防抖写法:在一段时间之内,连续触发多次函数,最后一次触发会生效,之前的触发都会被取消
+                    在防抖开启的时候,在一段时间之内,如果又第二次开启防抖,那么上一次取消
+
+                节流写法:在一段时间之内,连续触发多次函数,第一次触发会生效,剩余的触发都会被取消
+                    在第一次触发之后,在一定的时间段内,不能再触发第二次
+
+                无论是防抖还是节流,都可以设置一个时间段
+
+            3.怎么使用防抖和节流?
+
+            4.使用场景?
+                问题:防抖和节流的区别?
+                回答:
+                    1.回调函数的执行时机
+                        节流的回调函数会被立即执行(没有延迟时间)
+                        防抖的回调函数会被延迟执行(有一个定时器)
+
+                    2.数据的时效性
+                        节流的数据时效性很差
+                            因为节流是多次触发中,第一次生效,所以他使用的数据是第一次的旧数据
+
+                        防抖的数据时效性很好
+                            因为防抖是多次处罚中,最后一次生效,所以他使用的数据是最后一次的最新数据
+
+                在项目搜索框的单词联想功能上,我们可以使用防抖写法
+                    因为用户实际上想要搜索的是最后一次输入的内容
+
+                在项目登录界面,使用帐号密码登录,我们可以对登录按钮使用节流写法
+                    因为用户在短时间内点击多次登录,实际上得到的效果是相同的
+
+
+
+                
+                
+        
+        */
+      function throttle(callback, delay) {
+        let start = 0; // 必须保存第一次点击立即调用
+        return function (event) {
+          // 事件回调函数
+          // this是发生事件的dom元素
+        //   console.log("throttle 事件");
+          const current = Date.now();
+          if (current - start > delay) {
+            // 从第2次点击开始, 需要间隔时间超过delay
+            callback.call(this, event);
+            // 将当前时间指定为start, ==> 为后面的比较做准备
+            start = current;
+          }
+        };
+      }
+
+      /* 
+实现函数防抖的函数
+*/
+      function debounce(callback, delay) {
+        return function (event) {
+        //   console.log("debounce 事件...");
+
+          // 清除待执行的定时器任务
+          if (callback.timeoutId) {
+            clearTimeout(callback.timeoutId);
+          }
+          // 每隔delay的时间, 启动一个新的延迟定时器, 去准备调用callback
+          callback.timeoutId = setTimeout(() => {
+            callback.call(this, event);
+            // 如果定时器回调执行了, 删除标记
+            delete callback.timeoutId;
+          }, delay);
+        };
+      }
+
+    //   btn.onclick = function () {
+    //     console.log(1);
+    //   };      
+
+    //   btn.onclick = throttle(function () {
+    //     console.log(1);
+    //   },4000);
+
+      btn.onclick = debounce(function () {
+        console.log(1);
+      },4000)
+    </script>
+  </body>
+</html>
