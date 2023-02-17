@@ -1,30 +1,38 @@
 <template>
   <div id="app">
-    <h1>App的msg1:{{ msg1 }}</h1>
-    <h1 v-pre>App的msg1:{{ msg1 }}</h1>
-    <h1 v-once>App的msg1:{{ msg1 }}</h1>
-    <!-- <HelloWorld :msg.sync="msg1" /> -->
-    <HelloWorld :msg="msg1" @update:msg="data=>msg1=data"/>
+    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    
+    <!-- <keep-alive include="A"> -->
+    <!-- <keep-alive exclude="A"> -->
+    <keep-alive max="10">
+      <A v-if="isShow"/>
+      <B v-else/>
+    </keep-alive>
+
+    <!-- <keep-alive include="login,a,b,c">
+      <router-view/>
+    </keep-alive> -->
+
+    <button @click="isShow=!isShow">切换</button>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import A from './components/A.vue'
+import B from './components/B.vue'
 
 export default {
   name: 'App',
-  data() {
-    return {
-      msg1: "我是APP的数据"
+  data(){
+    return{
+      isShow:true
     }
   },
   components: {
-    HelloWorld
-  },
-  mounted(){
-    this.$bus.$emit('sendData',678)
-
-    this.msg1 = "777888"
+    HelloWorld,
+    A,
+    B
   }
 }
 </script>

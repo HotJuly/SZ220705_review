@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h1 @click="handler">hello的msg:{{ msg }}</h1>
   </div>
 </template>
 
@@ -9,6 +9,16 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  methods:{
+    handler(){
+      this.$emit('update:msg',"我是hello修改之后的数据")
+    }
+  },
+  mounted(){
+    this.$bus.$on('sendData',(data)=>{
+      console.log('sendData',data)
+    })
   }
 }
 </script>
