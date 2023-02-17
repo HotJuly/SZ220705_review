@@ -1,7 +1,8 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <h2 @click="clickHandler">APP传下来的value:{{msg123}}</h2>
+    <h1>inject接收的bbb:{{ bbb }}</h1>
+    <h1>inject接收的ccc:{{ ccc.ddd }}</h1>
   </div>
 </template>
 
@@ -9,20 +10,9 @@
 export default {
   name: 'HelloWorld',
   props: {
-    msg: String,
-    value:String,
-    msg123:String
+    msg: String
   },
-  methods:{
-    clickHandler(){
-      // this.value = "全新数据"
-      this.$emit('input777',"全新数据")
-    }
-  },
-  model:{
-    event:"input777",
-    prop:"msg123"
-  }
+  inject:["bbb","ccc"]
 }
 </script>
 
