@@ -1,34 +1,27 @@
 <template>
   <div id="app">
-    <h1>bbb:{{bbb}}</h1>
-    <!-- <HelloWorld :msg="a" :fn="$options.getData"/> -->
-    <HelloWorld :msg="a" :fn="getData1"/>
+    <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import testMixin from '@/mixins/test';
+// console.log(testMixin)
 
 export default {
   name: 'App',
-  data(){
-    return{
-      a:'hello,我是APP的数据',
-      bbb:"我是初始化数据"
-    }
-  },
   components: {
     HelloWorld
   },
-  getData(data){
-    // console.log('getData',this)
-    // this.bbb = data;
-  },
-  methods:{
-    getData1(data){
-      // console.log('getData11111',this)
-      this.bbb = data;
+  data(){
+    return{
+      a:3
     }
+  },
+  mixins:[testMixin],
+  mounted(){
+    console.log('app组件的mounted',this.$options.name,this.a)
   }
 }
 </script>

@@ -35,6 +35,27 @@ export default {
 
       nextTick他也是异步任务,他会将回调函数延迟一段时间执行
         他的原理中用到了.then
+
+      nextTick总结
+        1.是什么?
+          nextTick他是Vue提供的一个API
+
+        2.为什么要用?
+          Vue更新数据是同步更新,但是更新DOM是异步更新
+          而开发者,可能需要等最新的DOM节点出现之后,在进行一些代码的执行
+          所以需要使用nextTick这个方法
+
+        3.怎么用?
+          nextTick方法可以接收一个实参
+            数据类型是函数
+
+          nextTick会将接收到的函数延迟到DOM更新之后执行
+            从打印结果来看,nextTick方法具有开启微任务的效果
+              也就是说nextTick的回调函数,一定是异步执行
+                一定晚于主线程代码执行
+
+        4.在哪用?
+          Vue后台管理系统,编辑模式切换
     
     */
 
@@ -59,6 +80,14 @@ export default {
     this.$nextTick(() => {
       console.log(5)
     })
+
+    // setTimeout(()=>{
+    //   this.$nextTick(() => {
+    //     console.log(6)
+    //   })
+    // },0)
+
+    console.log(1)
   },
   methods: {
     clickHandler() {

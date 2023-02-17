@@ -43,6 +43,7 @@ export default {
         4.如何新增响应式属性?
           1.Vue.set
           2.this.$set
+          3.Vue.observable
 
         5.Vue2响应式原理中存在的BUG
           1.新增属性Vue无法知道,导致新增的属性不是响应式属性

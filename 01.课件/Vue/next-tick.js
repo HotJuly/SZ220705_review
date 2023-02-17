@@ -8,6 +8,7 @@ const callbacks = []
 let pending = false
 let timerFunc;
 
+// 只要该函数执行了,那么callbacks收集的所有回调函数都会执行
 function flushCallbacks () {
   pending = false
 

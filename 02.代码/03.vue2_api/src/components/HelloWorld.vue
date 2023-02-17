@@ -1,19 +1,39 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <h2>pageX:{{pageX}}</h2>
-    <h2>pageY:{{pageY}}</h2>
+    <h2>user.name:{{user.name}}</h2>
   </div>
 </template>
 
 <script>
-import moveMixin from '@/mixins/moveMixin'
 export default {
   name: 'HelloWorld',
-  props: {
-    msg: String
+  /*
+    面试题:现在我有一个数据,我想存在data中,但是又不想他是响应式的
+    回答:
+      1.给属性名加上_或者$开头
+      2.使用Object.freeze方法将对象中的所有属性都进行数据冻结
+        数据冻结:其实就是将属性全部变为只读属性,无法修改
+  */
+  data(){
+    return {
+      msg1:123,
+      // _basj:3
+      user:Object.freeze({
+        name:"xiaoming"
+      })
+    }
   },
-  mixins:[moveMixin]
+  props: {
+    msg: String,
+    fn:Function
+  },
+  mounted(){
+    // console.log(this.msg1,this._basj)
+    // this.user.name="laowang"
+    // 此处的this是Hello的组件实例
+    this.fn("我是hello传递的数据");
+  }
 }
 </script>
 
