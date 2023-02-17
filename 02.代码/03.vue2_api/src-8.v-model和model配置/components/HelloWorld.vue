@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <h2 @click="clickHandler">APP传下来的value:{{msg123}}</h2>
   </div>
 </template>
 
@@ -8,11 +9,19 @@
 export default {
   name: 'HelloWorld',
   props: {
-    msg: String
+    msg: String,
+    value:String,
+    msg123:String
   },
-  mounted(){
-    // console.log(this.$props,this.$attrs)
-    console.log(this.$listeners)
+  methods:{
+    clickHandler(){
+      // this.value = "全新数据"
+      this.$emit('input777',"全新数据")
+    }
+  },
+  model:{
+    event:"input777",
+    prop:"msg123"
   }
 }
 </script>

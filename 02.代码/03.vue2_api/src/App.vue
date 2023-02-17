@@ -1,26 +1,35 @@
 <template>
   <div id="app">
-    <h1>APPde msg1:{{ msg1 }}</h1>
-    <HelloWorld msg="Welcome to Your Vue.js App" v-model="msg1"/>
-    <!-- <HelloWorld :value="msg1" @input="data=>msg1=data"/> -->
-
-    <!-- <input type="text" v-model.lazy="msg1"/>
-    <input type="text" :value="msg1" @input="event=>msg1=event.target.value"/> -->
+    <HelloWorld 
+    msg="Welcome to Your Vue.js App" 
+    a="1" 
+    b="2" 
+    c="3" 
+    @abc="()=>{}" 
+    @ddd="()=>{}"
+    />
+    <HintButton type="danger" content="注意了!!!" size="big" @click="click1"/>
+    <HintButton type="primary"  content="没事,露个脸" size="small" @click="click2"/>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import HintButton from './components/HintButton.vue'
 
 export default {
   name: 'App',
-  data() {
-    return {
-      msg1: "我是APP的初始数据"
-    }
-  },
   components: {
-    HelloWorld
+    HelloWorld,
+    HintButton
+  },
+  methods:{
+    click1(){
+      console.log('click1')
+    },
+    click2(){
+      console.log('click2')
+    }
   }
 }
 </script>

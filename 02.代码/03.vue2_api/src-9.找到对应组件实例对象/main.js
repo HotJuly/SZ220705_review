@@ -8,5 +8,8 @@ Vue.use(ElementUI);
 Vue.config.productionTip = false
 
 new Vue({
+  data:{
+    msg2:"我是Root组件"
+  },
   render: h => h(App),
 }).$mount('#app')
