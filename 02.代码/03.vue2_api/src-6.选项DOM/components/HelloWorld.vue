@@ -1,8 +1,6 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <h1>inject接收的bbb:{{ bbb }}</h1>
-    <h1>inject接收的ccc:{{ ccc.ddd }}</h1>
   </div>
 </template>
 
@@ -11,8 +9,7 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String
-  },
-  inject:["bbb","ccc"]
+  }
 }
 </script>
 

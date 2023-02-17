@@ -9,31 +9,8 @@ import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
-  data(){
-    return{
-      aaa:666,
-      user:{
-        ddd:666
-      }
-    }
-  },
   components: {
     HelloWorld
-  },
-  // provide:{
-  //   bbb:777,
-  //   ccc:this.aaa
-  // },
-  mounted(){
-    setTimeout(()=>{
-      this.user.ccc=888;
-    },2000)
-  },  
-  provide(){
-    return {
-      bbb:777,
-      ccc:this.user
-    }
   }
 }
 </script>
