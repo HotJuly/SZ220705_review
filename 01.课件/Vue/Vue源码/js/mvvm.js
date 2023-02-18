@@ -91,7 +91,32 @@ function MVVM(options) {
   observe(data, this);
   // observe(data, vm);
 
+  /*
+    MVVM源码第三部分:模版解析
+    将页面上的部分结构作为模版进行编译,将内部插值语法等内容变成真正想要展示的内容
+    目的:
+      1.将模版中的插值语法,变成真正想要给用户观看的data数据
+      2.为了生成watcher对象
+    流程:
+      1.构造调用Compiler函数,传入options.el属性
+      2.在Compiler函数中,会判断el属性是否是真实DOM,如果不是就找到对应的DOM节点,
+        最终将找到的DOM节点放入$el身上
+      3.将$el对象身上的所有子节点,全部转移到文档碎片对象上(抄家)
+      4.调用init方法,开始编译文档碎片对象的内容
+      5.在compileElement方法中,会获取到文档碎片的直系子节点,并作出判断
+        -如果是元素节点,就获取所有的标签属性,进行判断,看他是不是指令
+        -如果是文本节点,就判断他是否满足插值语法的正则,如果满足继续向下编译
+      6.调用compileText方法,准备编译该文本内容
+      7.调用bind方法,
+        -找到对应的更新器函数
+        -调用更新器函数,并将插值表达式对应的属性值,传入更新器函数,用于更新该节点的文本内容
+        -创建一个全新的watcher对象
+          总结:每具有一个插值语法,就会创建一个对应的watcher对象
+      8.最终使用appendChild方法,将编译完的文档碎片插入到$el元素中
+  
+  */
   this.$compile = new Compile(options.el || document.body, this);
+  // this.$compile = new Compile("#app", this);
 }
 
 MVVM.prototype = {
