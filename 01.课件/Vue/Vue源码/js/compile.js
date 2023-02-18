@@ -182,6 +182,11 @@ var compileUtil = {
             updaterFn && updaterFn(node, value, oldValue);
         });
 
+        // new Watcher(vm, "msg", function(value, oldValue) {
+            // 使用闭包缓存对应的更新器函数,以及对应的节点
+        //     textUpdater && textUpdater(文本节点, value, oldValue);
+        // });
+
     },
 
     // 事件处理

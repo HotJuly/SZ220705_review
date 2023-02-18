@@ -8,6 +8,7 @@
     <div id="app">
       <p class="b">{{msg}}</p>
       <p class="b">{{person.name}}</p>
+      <p class="b">{{arr.1}}</p>
     </div>
     <script src="./js/observer.js"></script>
     <script src="./js/watcher.js"></script>
@@ -21,11 +22,16 @@
           person:{
             name:"xiaoming",
             msg:"123"
-          }
+          },
+          arr:[1,2,3,4,5]
         }
       });
 
-      // vm.msg="666"
+      vm.msg="hello 666!!!!!!";
+      setTimeout(()=>{
+        vm.arr[1]=7;
+        console.log(vm.arr)
+      },2000)
 
       /*
         流程:
@@ -39,7 +45,7 @@
           只有直接从vm身上读取他自己的直系属性,才会触发数据代理
           如果从data对象身上读取他的属性,就会触发数据劫持
       */
-      vm.person.name="laowang";
+      // vm.person.name="laowang";
 
       /*
         前言:
