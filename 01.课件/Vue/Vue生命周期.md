@@ -7,11 +7,19 @@
 2. 阶段划分
    1. 初始化阶段
       1. beforeCreate
+         1. **beforeCreate之前,Vue正在初始化事件和生命周期**
       2. created
          1. 发送请求
             1. 优点:created生命周期触发时间更早,那么在这里发请求,就会更早出去,相对的就会更早回来
          2. 注意:一定不要在这里做一些复杂的逻辑操作,很可能会影响到组件挂载的时间
+         3. **beforeCreate之后created之前,Vue正在初始化注入和初始化响应式**
+            1. **注入:数据代理就是注入的一员,其实注入就是将data,props,computed,methods,$data等数据全部在组件实例this身上来一份**
+            2. **响应式:就是将data中的属性全部进行数据劫持,变成具有get/set方法的访问描述符**
       3. beforeMount
+         1. **created之后beforeMount之前,Vue会找到需要解析的模版,并将模版解析成为render函数**
+            1. **模版查找优先级:render->template->el**
+            2. **注释:render函数的作用,就是用来创建一个组件的虚拟DOM的**
+         2. **注意:网上的答案都是说beforeMount之前就会调用render创建虚拟DOM,实际上并不会**
       4. mounted
          1. 发送请求
             1. 优点:这里做事情,说明组件都已经挂载结束了,对代码的影响比较小,而且这里比较适合新手做事情
@@ -21,6 +29,7 @@
          3. 开启定时器
          4. 绑定自定义事件
             1. 全局事件总线
+         5. **beforeMount之后mounted之前,Vue会调用render函数,生成虚拟DOM,在根据虚拟DOM生成真实DOM,并替换掉页面上指定的el区域**
    2. 更新阶段
       1. beforeUpdate
          1. 此处可以获取到当前最新的状态数据,但是拿不到最新的DOM节点
